@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Senin İçin...</title>
+  <style>
+    body {
+      background-color: #fff3f3;
+      font-family: 'Georgia', serif;
+      color: #b71c1c;
+      text-align: center;
+      padding: 80px 20px;
+      position: relative;
+      overflow: hidden;
+    }
+    h1 {
+      font-size: 2.5em;
+      margin-bottom: 30px;
+      position: relative;
+      z-index: 2;
+    }
+    p {
+      font-size: 1.2em;
+      line-height: 1.6;
+      max-width: 700px;
+      margin: 0 auto 40px auto;
+      position: relative;
+      z-index: 2;
+    }
+    .heart {
+      font-size: 3em;
+      margin-top: 40px;
+      animation: pulse 1s infinite;
+      position: relative;
+      z-index: 2;
+    }
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+      100% { transform: scale(1); }
+    }
+
+    .animated-button {
+      display: inline-block;
+      padding: 14px 28px;
+      background: #e91e63;
+      color: white;
+      font-size: 1.1em;
+      font-weight: bold;
+      text-decoration: none;
+      border-radius: 50px;
+      box-shadow: 0 0 15px rgba(255, 64, 129, 0.6);
+      animation: pulse-button 2s infinite;
+      transition: background 0.3s ease;
+      margin: 10px 10px;
+      position: relative;
+      z-index: 2;
+      cursor: pointer;
+      border: none;
+    }
+    .animated-button:hover {
+      background: #d81b60;
+      box-shadow: 0 0 20px rgba(255, 64, 129, 0.9);
+    }
+    @keyframes pulse-button {
+      0% { transform: scale(1); box-shadow: 0 0 10px rgba(255, 64, 129, 0.5); }
+      50% { transform: scale(1.05); box-shadow: 0 0 20px rgba(255, 64, 129, 0.8); }
+      100% { transform: scale(1); box-shadow: 0 0 10px rgba(255, 64, 129, 0.5); }
+    }
+
+    .floating-flower, .floating-butterfly {
+      position: fixed;
+      user-select: none;
+      pointer-events: none;
+      will-change: transform, opacity;
+      z-index: 1;
+    }
+    .floating-flower {
+      font-size: 24px;
+      color: #ff69b4;
+      animation: floatUp 10s linear forwards;
+      filter: drop-shadow(0 0 2px #ff85c1);
+    }
+    .floating-butterfly {
+      font-size: 28px;
+      color: #ff4081;
+      animation: floatUp 12s linear forwards;
+      filter: drop-shadow(0 0 3px #ff5c9e);
+      animation-timing-function: ease-in-out;
+    }
+    @keyframes floatUp {
+      0% {
+        transform: translateY(100vh) translateX(0) rotate(0deg);
+        opacity: 0;
+      }
+      10% { opacity: 1; }
+      100% {
+        transform: translateY(-120vh) translateX(50px) rotate(360deg);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>Sana Bir Mesajım Var... 💖</h1>
+  <p>
+    Bugün, sana olan sevgimi bir kez daha dile getirmek istedim.<br>
+    Seninle yaşlanmak, her sabah sana sarılmak ve her gece gözlerinde kaybolmak en büyük hayalim.<br><br>
+    Bu site, sana duyduğum aşkın sadece küçük bir yansıması...<br>
+    Seni çok seviyorum... ve hep seveceğim. 💌
+  </p>
+  <div class="heart">❤️</div>
+
+  <!-- Butonlar -->
+  <a href="mektup.html" class="animated-button">💌 Daha Bitmedi</a>
+  <a href="anidefteri.html" class="animated-button">📔 Anı Defterimiz</a>
+  <button class="animated-button" onclick="window.location.href='hediye.html'">🎁 Sürpriz</button>
+
+  <script>
+    // Çiçek ve kelebek karakterleri:
+    const flowers = ['🌸', '🌺', '🌷', '💐', '🌹'];
+    const butterflies = ['🦋'];
+
+    function createFloatingElement() {
+      const isFlower = Math.random() < 0.6;
+      const el = document.createElement('div');
+      el.classList.add(isFlower ? 'floating-flower' : 'floating-butterfly');
+      el.textContent = isFlower ? flowers[Math.floor(Math.random() * flowers.length)] : butterflies[0];
+      el.style.left = Math.random() * 100 + 'vw';
+      el.style.animationDuration = (4 + Math.random() * 4) + 's';
+      el.style.fontSize = (20 + Math.random() * 20) + 'px';
+      document.body.appendChild(el);
+      setTimeout(() => el.remove(), 15000);
+    }
+
+    setInterval(createFloatingElement, 350);
+  </script>
+</body>
+</html>

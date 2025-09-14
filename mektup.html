@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <title>Sana Bir Mektubum Var</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow: hidden;
+      font-family: 'Segoe UI', sans-serif;
+      background: black;
+      color: white;
+      text-align: center;
+      position: relative;
+    }
+
+    canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+      padding: 20px;
+      position: relative;
+      z-index: 1;
+    }
+
+    h1 {
+      font-size: 2.2em;
+      margin-bottom: 20px;
+    }
+
+    .mektup {
+      display: none;
+      background-color: rgba(255, 255, 255, 0.1);
+      border-radius: 15px;
+      padding: 30px;
+      max-width: 700px;
+      font-size: 1.2em;
+      line-height: 1.8;
+      backdrop-filter: blur(4px);
+      animation: fadein 2s ease forwards;
+      margin-top: 20px;
+    }
+
+    @keyframes fadein {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    button {
+      background-color: #ff4081;
+      border: none;
+      padding: 15px 25px;
+      font-size: 1em;
+      border-radius: 50px;
+      color: white;
+      cursor: pointer;
+      box-shadow: 0 0 10px #ff80ab;
+      transition: background-color 0.3s;
+      margin: 5px;
+    }
+
+    button:hover {
+      background-color: #e91e63;
+    }
+
+    /* Müzik kontrol butonu */
+    #musicControl {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: #ff4081;
+      border: none;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      color: white;
+      font-size: 24px;
+      cursor: pointer;
+      box-shadow: 0 0 15px #ff80ab;
+      transition: background 0.3s ease;
+      z-index: 1000;
+    }
+
+    #musicControl:hover {
+      background: #e91e63;
+    }
+
+    audio {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="stars"></canvas>
+
+  <div class="container">
+    <h1>✨ Bu Mektup Senin için...</h1>
+    <button onclick="mektubuGoster()">💌 Mektubu Oku</button>
+
+    <div class="mektup" id="mektup">
+      <p>
+        Canım aşkım,<br><br>
+        Ne zaman geriye dönüp baksam... birlikte yaşadığımız o güzel günler kadar,  
+        birlikte atlattığımız zorluklar da geliyor aklıma.  
+        Her fırtınada elimi tutman, her kırılgan anımda yanımda olman  
+        İyi ki bulmuşum seni iyi ki çıkmışsın karşıma<br><br>
+
+        Bazen hayat bizi sınadı, yordu, uzaklaştırmaya çalıştı belki...  
+        ama her seferinde birbirimize yeniden sarılmayı başardık.  
+        Çünkü biz “birlikte kalmayı seçen iki insan” olduk.<br><br>
+
+        Geleceği düşündüğümde içim sıcacık oluyor.  
+        Belki bir sahil kasabasında küçük bir evimiz olur...  
+        belki çocuklarımızla birlikte kahkahalarla dolu bir hayatımız...  
+        ama ne olursa olsun, tek bir şey biliyorum:<br><br>
+
+        <strong>Ben geleceğimi seninle yaşamak istiyorum.</strong><br><br>
+
+        Seni her gün, ilk günkü gibi seviyorum…  
+        Ve her zaman seveceğim.  
+        <br><br>
+        Sonsuz sevgimle,<br>
+        <strong>Resul 💖</strong>
+      </p>
+    </div>
+  </div>
+
+  <audio id="bgMusic" src="Video/ask.mp3" loop></audio>
+
+  <button id="musicControl" aria-label="Müziği Başlat/Durdur">▶️</button>
+
+  <script>
+    const music = document.getElementById('bgMusic');
+    const control = document.getElementById('musicControl');
+    const mektup = document.getElementById('mektup');
+
+    function mektubuGoster() {
+      mektup.style.display = 'block';
+      // Mektup açılınca müziği çalmaya çalış
+      music.play().catch(() => {
+        // Eğer otomatik çalma engellenirse, kullanıcı müzik butonuna basabilir
+      });
+      control.textContent = '⏸️';
+    }
+
+    control.addEventListener('click', () => {
+      if (music.paused) {
+        music.play();
+        control.textContent = '⏸️';
+      } else {
+        music.pause();
+        control.textContent = '▶️';
+      }
+    });
+
+    // Sayfa yüklendiğinde müzik otomatik başlamaya çalışabilir (bazı tarayıcılar engeller)
+    window.addEventListener('load', () => {
+      // music.play().then(() => control.textContent = '⏸️').catch(() => {});
+    });
+
+    // Yıldız animasyonu
+    const canvas = document.getElementById('stars');
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    let stars = [];
+    for (let i = 0; i < 100; i++) {
+      stars.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        radius: Math.random() * 1.5,
+        alpha: Math.random(),
+        dx: (Math.random() - 0.5) * 0.5,
+        dy: (Math.random() - 0.5) * 0.5
+      });
+    }
+
+    function drawStars() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      for (let star of stars) {
+        ctx.beginPath();
+        ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+        ctx.fillStyle = "rgba(255,255,255," + star.alpha + ")";
+        ctx.fill();
+        star.x += star.dx;
+        star.y += star.dy;
+
+        if (star.x < 0 || star.x > canvas.width) star.dx *= -1;
+        if (star.y < 0 || star.y > canvas.height) star.dy *= -1;
+      }
+      requestAnimationFrame(drawStars);
+    }
+    drawStars();
+  </script>
+  
+</body>
+
+</html>

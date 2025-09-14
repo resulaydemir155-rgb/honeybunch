@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <title>Sürpriz Senin İçin 🎁</title>
+  <style>
+    body {
+      background: radial-gradient(circle at center, #ffe6f0, #ffb6c1);
+      font-family: 'Georgia', serif;
+      color: #880e4f;
+      text-align: center;
+      padding: 60px 20px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    h1 {
+      font-size: 2.8em;
+      margin-bottom: 20px;
+    }
+
+    p {
+      font-size: 1.4em;
+      max-width: 700px;
+      margin: 20px auto;
+      line-height: 1.8;
+    }
+
+    .gift-box {
+      font-size: 100px;
+      animation: bounce 1.2s infinite;
+      margin-bottom: 30px;
+    }
+
+    @keyframes bounce {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-15px);
+      }
+    }
+
+    .heart-rain {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .heart {
+      position: absolute;
+      color: #ff4081;
+      font-size: 24px;
+      animation: fall linear forwards;
+    }
+
+    @keyframes fall {
+      0% {
+        transform: translateY(-100px) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(110vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    .back-btn {
+      display: inline-block;
+      margin-top: 30px;
+      padding: 14px 30px;
+      background: #c2185b;
+      color: white;
+      font-weight: bold;
+      border-radius: 40px;
+      text-decoration: none;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+      transition: background 0.3s;
+    }
+
+    .back-btn:hover {
+      background: #ad1457;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="gift-box">🎁</div>
+  <h1>Sürprizzzz! ✨</h1>
+
+  <p>
+    Bu sadece bir "hediye" değil...  
+    Sana olan sevgimin, emeğimin, düşüncelerimin bir parçası.  
+    Umarım yüzünde bir tebessüm bırakır 💖  
+    Çünkü sen, her güzel şeyin en güzelini hak ediyorsun.
+  </p>
+
+  <p><strong>Seni çok ama çok seviyorum… 💘</strong></p>
+
+  <a class="back-btn" href="mesaj.html">🔙 Geri Dön</a>
+
+  <!-- Kalp Yağmuru -->
+  <div class="heart-rain" id="rain"></div>
+
+  <script>
+    function createHeart() {
+      const heart = document.createElement("div");
+      heart.classList.add("heart");
+      heart.innerText = "❤️";
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.animationDuration = (3 + Math.random() * 2) + "s";
+      heart.style.fontSize = (20 + Math.random() * 20) + "px";
+      document.getElementById("rain").appendChild(heart);
+      setTimeout(() => heart.remove(), 5000);
+    }
+
+    setInterval(createHeart, 200);
+  </script>
+
+</body>
+</html>
