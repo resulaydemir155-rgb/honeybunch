@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <title>Hoşgeldin Aşkım</title>
+  <style>
+    body {
+      background: url('arkaplan.jpg') no-repeat center center fixed;
+      background-size: cover;
+      font-family: 'Segoe UI', sans-serif;
+      color: white;
+      text-align: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      backdrop-filter: brightness(60%);
+    }
+    .container {
+      background-color: rgba(0, 0, 0, 0.5);
+      padding: 40px;
+      border-radius: 15px;
+      max-width: 600px;
+    }
+    h1 {
+      font-size: 2.5em;
+    }
+    p {
+      font-size: 1.2em;
+    }
+    a {
+      display: inline-block;
+      margin-top: 30px;
+      padding: 15px 30px;
+      background-color: #e91e63;
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Hoşgeldin Aşkım 💖</h1>
+    <p>Bu küçük siteyi senin için hazırladım.  
+    Sana olan sevgimi kelimelerle anlatmak istedim.  
+    Hazırsan, küçük bir yolculuğa çıkıyoruz... 💌</p>
+    <a href="hatiralar.html" onclick="müziğiBaşlat()">Devam et sevgilim 💕</a>
+  </div>
+
+  <audio id="müzik" loop>
+    <source src="musıc/Ajda-Pekkan-Sana-Dogru.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    function müziğiBaşlat() {
+      const müzik = document.getElementById("müzik");
+      müzik.play();
+    }
+  </script>
+</body>
+</html>
